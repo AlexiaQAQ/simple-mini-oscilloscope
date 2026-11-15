@@ -407,17 +407,17 @@ ADC_FRONTEND_GAIN_new = ADC_FRONTEND_GAIN_old × 真实值 / 显示值
 
 | 对象 | 许可 |
 |---|---|
-| **本仓库代码**（\App/\、\Hardware/\、\Core/\ 中自行编写的部分） | **MIT**，见 [LICENSE](LICENSE) |
+| **本仓库代码**（`App/`、`Hardware/`、`Core/` 中自行编写的部分） | **MIT**，见 [LICENSE](LICENSE) |
 | **硬件设计**（原理图 / PCB / BOM） | 见[开源硬件页面](https://oshwhub.com/alexia0/project_qvtauhlg)的声明 |
-| **ST HAL / CMSIS**（\Drivers/\） | BSD 3-Clause，版权归 STMicroelectronics，各文件头部保留原始声明 |
+| **ST HAL / CMSIS**（`Drivers/`） | BSD 3-Clause，版权归 STMicroelectronics，各文件头部保留原始声明 |
 
 ### 11.2 第三方组件
 
 | 组件 | 位置 | 说明 |
 |---|---|---|
-| STM32F1xx HAL Driver | \Drivers/STM32F1xx_HAL_Driver/\ | ST 官方驱动，BSD-3 |
-| CMSIS | \Drivers/CMSIS/\ | ARM 官方，Apache-2.0 |
-| TFT 点阵字库 / 初始化序列 | \Hardware/inc/font.h\、\Hardware/src/tft.c\ | 由常见开源 TFT 驱动整理修改 |
+| STM32F1xx HAL Driver | `Drivers/STM32F1xx_HAL_Driver/` | ST 官方驱动，BSD-3 |
+| CMSIS | `Drivers/CMSIS/` | ARM 官方，Apache-2.0 |
+| TFT 点阵字库 / 初始化序列 | `Hardware/inc/font.h`、`Hardware/src/tft.c` | 由常见开源 TFT 驱动整理修改 |
 
 ### 11.3 致谢
 
@@ -430,5 +430,5 @@ ADC_FRONTEND_GAIN_new = ADC_FRONTEND_GAIN_old × 真实值 / 显示值
 欢迎提 Issue / PR。提交前请确认：
 
 1. Keil 编译 **0 error 0 warning**；
-2. 不提交 \MDK-ARM/synthesize-project/\ 等构建产物（已在 \.gitignore\ 中排除）；
-3. 修改了板级标定常量（\ADC_VREF\ 等）请在 PR 里说明测试条件。
+2. 不提交 `MDK-ARM/oscilloscope-project/` 等构建产物（已在 `.gitignore` 中排除）；
+3. 修改了板级标定常量（`ADC_VREF` 等）请在 PR 里说明测试条件。

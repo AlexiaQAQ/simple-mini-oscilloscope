@@ -1,6 +1,6 @@
 MIT License
 
-Copyright (c) 2026 Alexia (oshwhub: alexia0)
+Copyright (c) 2026 Alexia
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -19,13 +19,3 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-
----------------------------------------------------------------------------
-第三方组件说明 / Third-party components
----------------------------------------------------------------------------
-1. STM32F1xx HAL 驱动与 CMSIS（Drivers/ 目录）
-   Copyright (c) STMicroelectronics
-   Licensed under BSD 3-Clause License（各文件头部保留原始许可声明）
-
-2. TFT 点阵字库与初始化序列（Hardware/inc/font.h、Hardware/src/tft.c）
-   由常见开源 TFT 驱动整理修改而来，如涉及版权请联系作者补充声明。
