@@ -217,7 +217,7 @@ Vin  = (zero_pin − x) × ADC_FRONTEND_GAIN × (10X ? 10 : 1)
 2. **块传输刷屏**：CS 常低 + 连续写整行，帧率可提升数倍；
 3. **垂直档位 / 单次触发**：手动 V/div、捕获瞬态事件。
 
-## 10. 许可与致谢
+## 10. 许可
 
 | 对象 | 许可 |
 |---|---|
@@ -225,7 +225,5 @@ Vin  = (zero_pin − x) × ADC_FRONTEND_GAIN × (10X ? 10 : 1)
 | 硬件设计（原理图 / PCB / BOM） | 见[开源硬件页面](https://oshwhub.com/alexia0/project_qvtauhlg)声明 |
 | ST HAL / CMSIS（`Drivers/`） | BSD 3-Clause，版权归 STMicroelectronics |
 | TFT 点阵字库与初始化序列 | 由常见开源 TFT 驱动整理修改 |
-
-感谢立创开源硬件平台（原理图 / PCB / 器件选型）、STMicroelectronics（HAL 库与参考手册），以及提供 TFT 驱动与字库的开源社区作者。
 
 欢迎提 Issue / PR。提交前请确认 Keil 编译 **0 error 0 warning**，且不提交构建产物（`.gitignore` 已排除）。

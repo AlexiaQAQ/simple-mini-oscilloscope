@@ -36,6 +36,10 @@ out/
 *.ept
 *.eide-template
 
+# ---- 立创开源平台用的说明文件（不传到 GitHub）----
+README-oshwhub.md
+README-oshwhub.en.md
+
 # ---- 备份/临时文件 ----
 *~
 *.orig
