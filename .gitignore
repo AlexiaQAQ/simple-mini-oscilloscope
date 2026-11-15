@@ -19,6 +19,23 @@ MDK-ARM/RTE/_*/
 JLinkLog.txt
 EventRecorderStub.scvd
 
+# ---- EIDE / VSCode 本地开发环境 ----
+# EIDE（Embedded IDE）打开本工程时自动生成的脚手架，
+# 每个人本地都不一样，不纳入版本管理
+.eide/
+.vscode/
+.cmsis/
+*.code-workspace
+.clang-format
+build/
+bin/
+obj/
+out/
+*.log
+*.lock
+*.ept
+*.eide-template
+
 # ---- 备份/临时文件 ----
 *~
 *.orig
