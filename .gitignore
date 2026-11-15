@@ -1,0 +1,30 @@
+# ---- Keil MDK 构建产物 ----
+MDK-ARM/oscilloscope-project/
+MDK-ARM/synthesize-project/
+MDK-ARM/RTE/_*/
+*.uvguix.*
+*.lst
+*.lnp
+*.htm
+*.map
+*.hex
+*.axf
+*.o
+*.d
+*.crf
+*.dep
+*.bak
+*.iex
+*.sct
+JLinkLog.txt
+EventRecorderStub.scvd
+
+# ---- 备份/临时文件 ----
+*~
+*.orig
+*.rej
+
+# ---- 系统文件 ----
+Thumbs.db
+Desktop.ini
+.DS_Store
