@@ -1,9 +1,47 @@
-# 简易示波器（STM32F103 + ST7735S）
+# simple-mini-oscilloscope
 
-基于 STM32F103C8 的掌上示波器：单通道采集、自动纵向缩放、边沿触发，同时显示峰峰值、频率、周期和占空比，并带一路固定 1kHz PWM 输出。
+**基于 STM32F103C8T6 + ST7735S 的掌上示波器**
 
-- **硬件开源**：<https://oshwhub.com/alexia0/project_qvtauhlg>（立创开源硬件平台，含原理图 / PCB / BOM）
-- **代码许可**：MIT（见 [LICENSE](LICENSE)）
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![MCU](https://img.shields.io/badge/MCU-STM32F103C8T6-blue.svg)](#31-平台)
+[![IDE](https://img.shields.io/badge/IDE-Keil%20MDK%205.42-green.svg)](#81-开发环境)
+[![PCB](https://img.shields.io/badge/PCB-oshwhub-orange.svg)](https://oshwhub.com/alexia0/project_qvtauhlg)
+
+单通道采集、自动纵向缩放、边沿触发，同时显示峰峰值、频率、周期和占空比，并带一路固定 1 kHz PWM 输出。
+
+| 项目 | 说明 |
+|---|---|
+| 硬件开源 | [立创开源硬件平台](https://oshwhub.com/alexia0/project_qvtauhlg)（原理图 / PCB / BOM） |
+| 代码许可 | [MIT](LICENSE) |
+| 固件体积 | Flash **27 KB** / 64 KB，RAM **3.5 KB** / 20 KB |
+| 采样率 | 100 Sa/s ~ 500 kSa/s（6 档时基，20 µs/div ~ 100 ms/div） |
+
+### 快速开始
+
+```bash
+git clone https://github.com/AlexiaQAQ/simple-mini-oscilloscope.git
+```
+
+用 Keil 打开 `MDK-ARM/oscilloscope-project.uvprojx` → **F7** 编译 → **F8** 下载（ST-Link / J-Link / DAP-Link 均可）。
+没有硬件也能先看：[2. 技术指标](#2-技术指标) 和 [5. 界面布局](#5-界面布局)。
+
+---
+
+## 目录
+
+| 章节 | 内容 |
+|---|---|
+| [1. 功能特性](#1-功能特性) | 能做什么 |
+| [2. 技术指标](#2-技术指标) | 整板资源、采集通道、测量能力、供电、带宽分析 |
+| [3. 硬件](#3-硬件) | 平台、引脚分配、模拟前端与测频通道 |
+| [4. 操作说明](#4-操作说明) | 按键、上电流程（**注意先接地**） |
+| [5. 界面布局](#5-界面布局) | 屏幕分区、时基档位表 |
+| [6. 软件结构](#6-软件结构) | 三层结构、数据流 |
+| [7. 关键参数与标定](#7-关键参数与标定) | 换算链路、如何重新标定 |
+| [8. 编译与烧录](#8-编译与烧录) | 环境、编译、CubeMX 重新生成、换板标定 |
+| [9. 已知限制](#9-已知限制) | 单缓冲、刷屏速度、比较器阈值等 |
+| [10. 后续可做](#10-后续可做) | 双缓冲、块传输、垂直档位…… |
+| [11. 开源信息与致谢](#11-开源信息与致谢) | 许可、第三方组件、贡献指南 |
 
 ---
 
@@ -259,20 +297,20 @@ Uadc ─→ U4-A(LM393) 1IN−        ┐
 Core/                    ← CubeMX 生成，只做外设初始化
 ├── Src/main.c           流程编排（初始化 + 主循环 60 行）
 ├── Src/adc.c  dma.c  spi.c
-├── Src/tim.c            TIM1 / TIM3 初始化
-├── Src/gpio.c           GPIO 初始化
+├── Src/tim.c            TIM1(PWM) / TIM2(ADC 触发) / TIM3(测频捕获)
+├── Src/gpio.c           GPIO 初始化（含按键/编码器 EXTI）
 └── Inc/
 
 App/                     ← 业务逻辑
 ├── src/app_scope.c      帧处理：电压换算、测量、触发、绘制、零点校准、暂停
-├── src/app_key.c        按键扫描、编码器解码、LED、采样时间档位
+├── src/app_key.c        按键扫描、编码器解码、时基切换、LED
 ├── src/app_ui.c         界面布局与刷新（含变化检测）
-├── src/app_freq.c       测频（输入捕获 + 16 周期平均）
+├── src/app_freq.c       测频（输入捕获 + 16 周期平均 + 超时清零）
 └── inc/                 对应头文件
 
 Hardware/                ← 驱动层
 ├── src/tft.c            绘图原语（点/线/矩形/字符/曲线）
-├── src/tft_init.c       ST7735S 初始化序列
+├── src/tft_init.c       ST7735S 初始化序列（含 SWRESET）
 └── inc/font.h           点阵字库
 ```
 
@@ -343,9 +381,9 @@ ADC_FRONTEND_GAIN_new = ADC_FRONTEND_GAIN_old × 真实值 / 显示值
 
 | 项目 | 说明 |
 |---|---|
-| 工程 | `MDK-ARM/synthesize-project.uvprojx` |
-| 目标 | `synthesize-project`（STM32F103C8） |
-| 产物 | `MDK-ARM/synthesize-project/synthesize-project.hex` |
+| 工程 | `MDK-ARM/oscilloscope-project.uvprojx` |
+| 目标 | `oscilloscope-project`（STM32F103C8） |
+| 产物 | `MDK-ARM/oscilloscope-project/oscilloscope-project.hex` |
 | 资源占用 | Flash ≈ 27 KB / 64 KB，RAM ≈ 3.5 KB / 20 KB |
 
 用 Keil 打开工程 → Build（F7）→ 下载（F8），或用 J-Link / OpenOCD 烧写 hex。
